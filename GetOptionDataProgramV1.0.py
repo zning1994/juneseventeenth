@@ -8,10 +8,10 @@ contractCodeList = list()
 SLEEP_TIME=5
 tradingDayFlag = None
 tradingTimeFlag = None
-morn_start = time.strptime("09:30:00", "%H:%M:%S")
-morn_end = time.strptime("11:30:00", "%H:%M:%S")
-noon_start = time.strptime("13:00:00", "%H:%M:%S")
-noon_end = time.strptime("15:00:00", "%H:%M:%S")
+morn_start = time.strptime("09:25:00", "%H:%M:%S")
+morn_end = time.strptime("11:35:00", "%H:%M:%S")
+noon_start = time.strptime("12:55:00", "%H:%M:%S")
+noon_end = time.strptime("15:05:00", "%H:%M:%S")
 
 def getOptionInfo(threadcount, contractCodeList):
     option_sina_sse_info_df = pd.DataFrame()
