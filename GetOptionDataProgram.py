@@ -15,9 +15,9 @@ noon_start = time.strptime("12:55:00", "%H:%M:%S")
 noon_end = time.strptime("15:05:00", "%H:%M:%S")
 host = '127.0.0.1'
 port = 3306
-db = '你猜'
-user = '你猜'
-password = '你猜'
+db = 'youguess'
+user = 'youguess'
+password = 'youguess'
 
 def getOptionInfo(threadcount, contractCodeList):
     option_sina_sse_info_df = pd.DataFrame()
@@ -82,15 +82,15 @@ if __name__ == '__main__':
     while True:
         # True为非交易日，False为交易日
         # if (tool_trade_date_hist_sina_df[tool_trade_date_hist_sina_df['trade_date'] == "2021-04-16"].empty):
-        if (tool_trade_date_hist_sina_df[tool_trade_date_hist_sina_df['trade_date'] == datetime.date.today()].empty):
+        if (tool_trade_date_hist_sina_df[tool_trade_date_hist_sina_df['trade_date'] == str(datetime.date.today())].empty):
             if (tradingDayFlag != False):
-                print("[" + str(datetime.datetime.today()) + "] 今天为非交易日，可以休息啦！")
+                print("[" + str(datetime.datetime.today()) + "] Today is off day. Have fun!")
             tradingDayFlag = False
             time.sleep(SLEEP_TIME)
             continue
         else:
             if (tradingDayFlag != True):
-                print("[" + str(datetime.datetime.today()) + "] 今天为交易日，大干开工啦！")
+                print("[" + str(datetime.datetime.today()) + "] Today is trading day. Let's do it!")
                 getContractID()
             tradingDayFlag = True
             i=0
@@ -102,16 +102,16 @@ if __name__ == '__main__':
                     try:
                        _thread.start_new_thread( getOptionInfo, (++i, contractCodeList, ) )
                     except:
-                       print ("Error: 无法启动线程")
+                       print ("Error: Cannot start thread.")
                     i=i+1
                     time.sleep(60)
                 elif(now >= morn_end and now <= noon_start):
                     if(tradingTimeFlag != False):
-                        print("[" + str(datetime.datetime.today()) + "] 交易日闭市中，好好休息吧！")
+                        print("[" + str(datetime.datetime.today()) + "] Trading day break, have a good rest.")
                     tradingTimeFlag = False
                     continue
                 else:
                     if(tradingTimeFlag != False):
-                        print("[" + str(datetime.datetime.today()) + "] 今日交易结束，好好休息吧！")
+                        print("[" + str(datetime.datetime.today()) + "] Trading day end or not begin, have fun.")
                     tradingTimeFlag = False
                     break
