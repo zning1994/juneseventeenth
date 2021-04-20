@@ -31,9 +31,9 @@ SLEEP_TIME=5
 tradingDayFlag = None
 tradingTimeFlag = None
 morn_start = time.strptime("09:25:00", "%H:%M:%S")
-morn_end = time.strptime("11:35:00", "%H:%M:%S")
+morn_end = time.strptime("11:46:00", "%H:%M:%S")
 noon_start = time.strptime("12:55:00", "%H:%M:%S")
-noon_end = time.strptime("15:05:00", "%H:%M:%S")
+noon_end = time.strptime("15:16:00", "%H:%M:%S")
 
 def sendSMSviaQcloud(sysname,health):
     result=""
@@ -148,7 +148,8 @@ if __name__ == '__main__':
             while True:
                 now = time.strptime(time.strftime("%H:%M:%S", time.localtime()), "%H:%M:%S")
                 if ((now >= morn_start and now <= morn_end) or (now >= noon_start and now <= noon_end)):
-                    if (tradingDayFlag != True):
+                    if (tradingTimeFlag != True):
+                        sendemail("早盘开始，期权数据采集运行正常。", "[" + str(datetime.datetime.today().strftime('%Y-%m-%d %H:%M')) + "] 早盘开始，期权数据采集运行正常。", "zhn038@163.com")
                         sendSMSviaQcloud("期权数据采集", "正常.今日交易日.")
                     tradingTimeFlag = True
                     # 创建线程
