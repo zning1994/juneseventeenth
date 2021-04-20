@@ -11,7 +11,7 @@ from qcloudsms_py.httpclient import HTTPError
 
 from passfile import host
 from passfile import port
-from passfile import db
+from passfile import db_options
 from passfile import user
 from passfile import password
 
@@ -122,7 +122,7 @@ def getContractID():
 
 if __name__ == '__main__':
 
-    engine = create_engine(str(r"mysql+pymysql://%s:" + '%s' + "@%s/%s?charset=utf8mb4") % (user, password, host, db))
+    engine = create_engine(str(r"mysql+pymysql://%s:" + '%s' + "@%s/%s?charset=utf8mb4") % (user, password, host, db_options))
 
     # 获取新浪财经的股票交易日历数据 单次返回从 1990-12-19 到 2020-12-31 之间的股票交易日历数据
     tool_trade_date_hist_sina_df = ak.tool_trade_date_hist_sina()
