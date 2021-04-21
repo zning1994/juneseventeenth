@@ -142,7 +142,6 @@ if __name__ == '__main__':
             if (tradingDayFlag != True):
                 print("[" + str(datetime.datetime.today().strftime('%Y-%m-%d %H:%M')) + "] Today is trading day. Let's do it!")
                 # sendemail("今日交易日，大干一场吧！", "[" + str(datetime.datetime.today().strftime('%Y-%m-%d %H:%M')) + "] 今日交易日，大干一场吧！", "zhn038@163.com")
-                getContractID()
             tradingDayFlag = True
             i=0
             while True:
@@ -151,6 +150,7 @@ if __name__ == '__main__':
                     if (tradingTimeFlag != True):
                         sendemail("早盘开始，期权数据采集运行正常。", "[" + str(datetime.datetime.today().strftime('%Y-%m-%d %H:%M')) + "] 早盘开始，期权数据采集运行正常。", "zhn038@163.com")
                         sendSMSviaQcloud("期权数据采集", "正常.今日交易日.")
+                        getContractID()
                     tradingTimeFlag = True
                     # 创建线程
                     try:
