@@ -104,7 +104,7 @@ if __name__ == '__main__':
                 if ((now >= morn_start and now <= morn_end) or (now >= noon_start and now <= noon_end)):
                     if (tradingTimeFlag != True):
                         sendemail("早盘开始，ETF数据采集运行正常。", "[" + str(datetime.datetime.today().strftime('%Y-%m-%d %H:%M')) + "] 早盘开始，ETF数据采集运行正常。", "zhn038@163.com")
-                        sendSMSviaQcloud("ETF数据采集", "正常.今日交易日.")
+                        sendSMSviaQcloud("ETF数据采集", "正常。今日交易日")
                     tradingTimeFlag = True
                     # 创建线程
                     try:
@@ -119,13 +119,13 @@ if __name__ == '__main__':
                     if(tradingTimeFlag != False):
                         print("[" + str(datetime.datetime.today().strftime('%Y-%m-%d %H:%M')) + "] Trading day break, have a good rest.")
                         sendemail("早盘结束，ETF数据采集运行正常。", "[" + str(datetime.datetime.today().strftime('%Y-%m-%d %H:%M')) + "] 早盘结束，ETF数据采集运行正常。", "zhn038@163.com")
-                        sendSMSviaQcloud("ETF数据采集", "正常.早盘结束.")
+                        sendSMSviaQcloud("ETF数据采集", "正常。早盘结束")
                     tradingTimeFlag = False
                     continue
                 else:
                     if(tradingTimeFlag != False):
                         print("[" + str(datetime.datetime.today().strftime('%Y-%m-%d %H:%M')) + "] Trading day end or not begin, have fun.")
                         sendemail("午盘结束或早盘未开始，ETF数据采集运行正常。", "[" + str(datetime.datetime.today().strftime('%Y-%m-%d %H:%M')) + "] 午盘结束或早盘未开始，ETF数据采集运行正常。", "zhn038@163.com")
-                        sendSMSviaQcloud("ETF数据采集", "正常.午盘或全天结束.")
+                        sendSMSviaQcloud("ETF数据采集", "正常。午盘或全天结束")
                     tradingTimeFlag = False
                     break

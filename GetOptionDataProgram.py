@@ -149,7 +149,7 @@ if __name__ == '__main__':
                 if ((now >= morn_start and now <= morn_end) or (now >= noon_start and now <= noon_end)):
                     if (tradingTimeFlag != True):
                         sendemail("早盘开始，期权数据采集运行正常。", "[" + str(datetime.datetime.today().strftime('%Y-%m-%d %H:%M')) + "] 早盘开始，期权数据采集运行正常。", "zhn038@163.com")
-                        sendSMSviaQcloud("期权数据采集", "正常.今日交易日.")
+                        sendSMSviaQcloud("期权数据采集", "正常。今日交易日")
                         getContractID()
                     tradingTimeFlag = True
                     # 创建线程
@@ -165,13 +165,13 @@ if __name__ == '__main__':
                     if(tradingTimeFlag != False):
                         print("[" + str(datetime.datetime.today().strftime('%Y-%m-%d %H:%M')) + "] Trading day break, have a good rest.")
                         sendemail("早盘结束，期权数据采集运行正常。", "[" + str(datetime.datetime.today().strftime('%Y-%m-%d %H:%M')) + "] 早盘结束，期权数据采集运行正常。", "zhn038@163.com")
-                        sendSMSviaQcloud("期权数据采集", "正常.早盘结束.")
+                        sendSMSviaQcloud("期权数据采集", "正常。早盘结束")
                     tradingTimeFlag = False
                     continue
                 else:
                     if(tradingTimeFlag != False):
                         print("[" + str(datetime.datetime.today().strftime('%Y-%m-%d %H:%M')) + "] Trading day end or not begin, have fun.")
                         sendemail("午盘结束或早盘未开始，期权数据采集运行正常。", "[" + str(datetime.datetime.today().strftime('%Y-%m-%d %H:%M')) + "] 午盘结束或早盘未开始，期权数据采集运行正常。", "zhn038@163.com")
-                        sendSMSviaQcloud("期权数据采集", "正常.午盘或全天结束.")
+                        sendSMSviaQcloud("期权数据采集", "正常。午盘或全天结束")
                     tradingTimeFlag = False
                     break
