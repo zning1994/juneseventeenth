@@ -4,10 +4,9 @@ import datetime
 import time
 import _thread
 from sqlalchemy import create_engine
-import smtplib
-from email.mime.text import MIMEText
-from qcloudsms_py import SmsSingleSender
-from qcloudsms_py.httpclient import HTTPError
+
+from send import sendSMSviaQcloud
+from send import sendemail
 
 from passfile import host
 from passfile import port
@@ -15,58 +14,13 @@ from passfile import db_etf
 from passfile import user
 from passfile import password
 
-from passfile import mail_host
-from passfile import mail_user
-from passfile import mail_pass
-from passfile import sender
-
-from passfile import appid
-from passfile import appkey
-from passfile import phone_numbers
-from passfile import template_id
-from passfile import sms_sign
-
 SLEEP_TIME=5
 tradingDayFlag = None
 tradingTimeFlag = None
 morn_start = time.strptime("09:25:00", "%H:%M:%S")
-morn_end = time.strptime("11:46:00", "%H:%M:%S")
+morn_end = time.strptime("11:35:00", "%H:%M:%S")
 noon_start = time.strptime("12:55:00", "%H:%M:%S")
-noon_end = time.strptime("15:16:00", "%H:%M:%S")
-
-
-def sendSMSviaQcloud(sysname,health):
-    result = ""
-    ssender = SmsSingleSender(appid, appkey)
-    params = []  # 当模板没有参数时，`params = []`
-    params.append(str(datetime.datetime.today().strftime('%H:%M')))
-    params.append(sysname)
-    params.append(health)
-    try:
-      result = ssender.send_with_param(86, phone_numbers[0], template_id, params, sign=sms_sign, extend="", ext="")
-    except HTTPError as e:
-      print("[" + str(datetime.datetime.today().strftime('%Y-%m-%d %H:%M')) + "] ERROR ",e)
-    except Exception as e:
-      print("[" + str(datetime.datetime.today().strftime('%Y-%m-%d %H:%M')) + "] ERROR ",e)
-
-    print("[" + str(datetime.datetime.today().strftime('%Y-%m-%d %H:%M')) + "] INFO "+str(result))
-
-
-def sendemail(content, subject, to):
-    message = MIMEText(content, "plain", "utf-8")
-    message['From'] = "JuneSeventeenth Finance <noreply@finance.zning.net.cn>" # 发送者
-    message['To'] = to # 接收者
-    message['Subject'] = subject
-
-    try:
-        smtpObj = smtplib.SMTP()
-        smtpObj.connect(mail_host,25)
-        smtpObj.login(mail_user,mail_pass)
-        smtpObj.sendmail(sender,to,message.as_string())
-        smtpObj.quit()
-        print("[" + str(datetime.datetime.today().strftime('%Y-%m-%d %H:%M')) + "] Send mail success.")
-    except smtplib.SMTPException as e:
-        print("[" + str(datetime.datetime.today().strftime('%Y-%m-%d %H:%M')) + "] ERROR ",e)
+noon_end = time.strptime("15:05:00", "%H:%M:%S")
 
 def getETFInfo(threadcount):
     sh510050_df = ak.option_sina_sse_underlying_spot_price(code="sh510050")
